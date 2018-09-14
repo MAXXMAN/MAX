@@ -1968,13 +1968,13 @@ send(msg.chat_id_, msg.id_, 1, "✖┇تم تعطيل {"..name_t[2]..".lua}", 1,
 end
 if (text:match("^(مسح الملفات)$"))then
 database:del("files"..bot_id)
-send(msg.chat_id_, msg.id_, 1, "🗑┇تم حذف جميع الملفات", 1, 'html')
+send(msg.chat_id_, msg.id_, 1, "🗑┇تم مسح الملفات", 1, 'html')
 end
 if text:match("^(مسح ملف) (.*)(.lua)$") then
-local name_t = {string.match(text, "^(حذف ملف) (.*)(.lua)$")}
+local name_t = {string.match(text, "^(مسح ملف) (.*)(.lua)$")}
 io.popen("rm -fr files_MAX/"..name_t[2]..'.lua')
 database:srem("files"..bot_id,name_t[2]..'.lua')
-send(msg.chat_id_, msg.id_, 1, "✖┇تم حذف {"..name_t[2]..".lua}", 1, 'html')
+send(msg.chat_id_, msg.id_, 1, "✖┇تم مسح {"..name_t[2]..".lua}", 1, 'html')
 end
 if (msg.content_.text_ == 'رفع ملف' ) then
 send(msg.chat_id_, msg.id_, 1, " 📥┇ ارسل ملف الان", 1, 'html')
@@ -2424,7 +2424,7 @@ end
 bot.channel_get_kicked(msg.chat_id_,moody)
 end
 
-if text:match("^حذف الكل$") and is_owner(msg) and msg.reply_to_message_id_ then
+if text:match("^مسح الكل$") and is_owner(msg) and msg.reply_to_message_id_ then
 function delall_by_reply(extra, result, success)
 if ck_mod(result.sender_user_id_, msg.chat_id_) then
 send(msg.chat_id_, msg.id_, 1, '❕┇لا تستطيع مسح مسجات \n🔘┇(اداريين،ادمنيه،اعضاء مميزين)البوت', 1, 'md')
@@ -2436,18 +2436,18 @@ end
 getMessage(msg.chat_id_, msg.reply_to_message_id_,delall_by_reply)
 end
 
-if text:match("^حذف الكل (%d+)$") and is_owner(msg) then
-local ass = {string.match(text, "^(حذف الكل) (%d+)$")}
+if text:match("^مسح الكل (%d+)$") and is_owner(msg) then
+local ass = {string.match(text, "^(مسح الكل) (%d+)$")}
 if ck_mod(ass[2], msg.chat_id_) then
-send(msg.chat_id_, msg.id_, 1, '❕┇لا تستطيع حذف مسجات \n🔘┇(اداريين،ادمنيه،مميزين)البوت', 1, 'md')
+send(msg.chat_id_, msg.id_, 1, '❕┇لا تستطيع مسح مسجات \n🔘┇(اداريين،ادمنيه،مميزين)البوت', 1, 'md')
 else
 del_all_msgs(msg.chat_id_, ass[2])
-send(msg.chat_id_, msg.id_, 1, '👨┇العضو ⌁≻ *('..ass[2]..')* \n🗑┇تم حذف كل مسجاته\n', 1, 'md')
+send(msg.chat_id_, msg.id_, 1, '👨┇العضو ⌁≻ *('..ass[2]..')* \n🗑┇تم مسح كل مسجاته\n', 1, 'md')
 end
 end
 
-if text:match("^حذف الكل @(.*)$") and is_owner(msg) then
-local apbll = {string.match(text, "^(حذف الكل) @(.*)$")}
+if text:match("^مسح الكل @(.*)$") and is_owner(msg) then
+local apbll = {string.match(text, "^(مسح الكل) @(.*)$")}
 function delall_by_username(extra, result, success)
 if result.id_ then
 if ck_mod(result.id_, msg.chat_id_) then
@@ -2455,7 +2455,7 @@ send(msg.chat_id_, msg.id_, 1, '❕┇لا تستطيع مسح مسجات \n🔘
 return false
 end
 del_all_msgs(msg.chat_id_, result.id_)
-texts = '👨┇العضو ⌁≻ ('..result.id_..') \n🗑┇تم حذف كل مسجاته'
+texts = '👨┇العضو ⌁≻ ('..result.id_..') \n🗑┇تم مسح كل مسجاته'
 else
 texts = '✖┇خطاء'
 end
